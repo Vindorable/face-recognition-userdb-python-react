@@ -1,0 +1,6 @@
+.client
+ "npm create vite@latest"
+  > react
+  > javascript
+ "npm install"
+ "npm run dev"
