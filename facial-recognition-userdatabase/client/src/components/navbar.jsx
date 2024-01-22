@@ -1,5 +1,9 @@
 import React from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
+
+// Routes.
+import { Link } from "react-router-dom";
+import { PATH_WEBPAGE } from "../routes/paths";
 
 
 // ---------------------------------------------------------
@@ -18,7 +22,17 @@ const Navbar = () => {
         }}
         zIndex={"100"}
       >
-
+        <Stack
+          spacing={2}
+          sx={{ height: "100%" }}
+          direction={"row"}
+          alignItems={"center"}
+        >
+          <Button variant="contained" component={Link} to={PATH_WEBPAGE.general.home}>Home</Button>
+          <Button variant="contained" component={Link} to={PATH_WEBPAGE.general.login}>Login</Button>
+          <Button variant="contained" component={Link} to={PATH_WEBPAGE.general.signUp}>Sign Up</Button>
+          <Button variant="contained" component={Link} to={PATH_WEBPAGE.general.login}>Logout</Button>
+        </Stack>
       </Box>
     </>
   );
