@@ -1,18 +1,17 @@
-// Routes.
-import Router from "./routes";
+import React from "react";
 
 
 // ---------------------------------------------------------
 
-function App() {
+const SignUp = () => {
   return (
     <>
-      <Router />
+      Sign Up
     </>
-  )
+  );
 }
 
 
 // ---------------------------------------------------------
 
-export default App
+export default SignUp;

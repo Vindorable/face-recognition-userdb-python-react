@@ -1,18 +1,17 @@
-// Routes.
-import Router from "./routes";
+import React from "react";
 
 
 // ---------------------------------------------------------
 
-function App() {
+const Login = () => {
   return (
     <>
-      <Router />
+      Login
     </>
-  )
+  );
 }
 
 
 // ---------------------------------------------------------
 
-export default App
+export default Login;

@@ -1,18 +1,17 @@
-// Routes.
-import Router from "./routes";
+import React from "react";
 
 
 // ---------------------------------------------------------
 
-function App() {
+const LoadingScreen = () => {
   return (
     <>
-      <Router />
+      Loading...
     </>
-  )
+  );
 }
 
 
 // ---------------------------------------------------------
 
-export default App
+export default LoadingScreen;

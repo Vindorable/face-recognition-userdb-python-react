@@ -1,18 +1,17 @@
-// Routes.
-import Router from "./routes";
+import React from "react";
 
 
 // ---------------------------------------------------------
 
-function App() {
+const Page404 = () => {
   return (
     <>
-      <Router />
+      404
     </>
-  )
+  );
 }
 
 
 // ---------------------------------------------------------
 
-export default App
+export default Page404;
