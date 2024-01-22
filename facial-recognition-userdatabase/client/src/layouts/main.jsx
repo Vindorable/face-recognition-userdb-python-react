@@ -1,5 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { Stack } from "@mui/material";
+
+import Navbar from "../components/navbar";
 
 
 // ---------------------------------------------------------
@@ -7,8 +10,10 @@ import { Outlet } from "react-router-dom";
 const MainLayout = () => {
   return (
     <>
-      MainLayout//
-      <Outlet />
+      <Stack height={"100%"} maxHeight={"100dvh"} width={"auto"}>
+        <Navbar />
+        <Outlet />
+      </Stack>
     </>
   );
 }
