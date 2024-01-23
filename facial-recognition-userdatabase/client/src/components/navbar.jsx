@@ -15,7 +15,7 @@ const Navbar = () => {
         p={2} // 2 * 8 (mui internal value) = 16px
         sx={{
           backgroundColor: "#f5f5f5",
-          boxShadow: `0px 0px 2px #333`,
+          boxShadow: "0px 0px 2px rgba(0, 0, 0, 0.25)",
           height: 60,
           width: "100vw",
           maxWidth: "100%", // This is very Important else there will be the 100vw scrollbar issue.
