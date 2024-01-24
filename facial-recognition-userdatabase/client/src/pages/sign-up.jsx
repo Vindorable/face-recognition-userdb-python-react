@@ -62,6 +62,7 @@ const SignUp = () => {
       .then(res => {
         console.log(res);
         navigate(PATH_WEBPAGE.general.home);
+        window.location.reload();
       })
       .catch(err => {
         if (!err.response) {

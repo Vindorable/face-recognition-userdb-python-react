@@ -1,14 +1,42 @@
 import React from "react";
 import { Box, Button, Stack } from "@mui/material";
 
+import axios from "axios";
+
 // Routes.
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PATH_WEBPAGE } from "../routes/paths";
+import { IsSessionValid } from "../functions/isSessionValid";
 
 
 // ---------------------------------------------------------
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const logoutUser = () => {
+    axios
+      .post("http://127.0.0.1:5000/logout", {}, {
+        withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => {
+        console.log(res);
+        navigate(PATH_WEBPAGE.general.login);
+        window.location.reload();
+      })
+      .catch(err => {
+        if (!err.response) {
+          console.log("Error: Network Error (possibly server is down)");
+        } else {
+          console.log(err.response.data);
+        }
+      });
+  }
+
   return (
     <>
       <Box
@@ -28,10 +56,17 @@ const Navbar = () => {
           direction={"row"}
           alignItems={"center"}
         >
-          <Button variant="contained" component={Link} to={PATH_WEBPAGE.general.home}>Home</Button>
-          <Button variant="contained" component={Link} to={PATH_WEBPAGE.general.login}>Login</Button>
-          <Button variant="contained" component={Link} to={PATH_WEBPAGE.general.signUp}>Sign Up</Button>
-          <Button variant="contained" component={Link} to={PATH_WEBPAGE.general.login}>Logout</Button>
+          {IsSessionValid() ?
+            <>
+              <Button variant="contained" component={Link} to={PATH_WEBPAGE.general.home}>Home</Button>
+              <Button variant="contained" onClick={logoutUser}>Logout</Button>
+            </>
+            :
+            <>
+              <Button variant="contained" component={Link} to={PATH_WEBPAGE.general.login}>Login</Button>
+              <Button variant="contained" component={Link} to={PATH_WEBPAGE.general.signUp}>Sign Up</Button>
+            </>
+          }
         </Stack>
       </Box>
     </>

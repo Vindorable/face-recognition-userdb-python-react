@@ -86,6 +86,11 @@ def login():
         "email": user.email
     })
 
+@app.route("/logout", methods=["POST"])
+def logout():
+    session.pop("user_id")
+    return "200"
+
 # **********
 # 403 - Forbidden Error
 #     > Indicates that the web page (or another resource) that you're trying to open in your web browser is a resource that you're not allowed to access.

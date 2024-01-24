@@ -10,6 +10,9 @@ import MainLayout from "../layouts/main";
 // Components.
 import LoadingScreen from "../components/loading-screen";
 
+// Backend Flask user session.
+import { IsSessionValid } from "../functions/isSessionValid";
+
 
 // ---------------------------------------------------------
 
@@ -37,9 +40,9 @@ export default function Router() {
       element: <MainLayout />,
       children: [
         { element: <Navigate to={DEFAULT_PATH} replace />, index: true },
-        { path: "home", element: <Home /> },
-        { path: "login", element: <Login /> },
-        { path: "sign-up", element: <SignUp /> },
+        { path: "home", element: IsSessionValid() ? <Home /> : <Navigate to={"/login"} replace /> },
+        { path: "login", element: !IsSessionValid() ? <Login /> : <Navigate to={DEFAULT_PATH} replace /> },
+        { path: "sign-up", element: !IsSessionValid() ? <SignUp /> : <Navigate to={DEFAULT_PATH} replace /> },
 
         { path: "404", element: <Page404 /> },
         { path: "*", element: <Navigate to="/404" replace /> },
