@@ -20,6 +20,7 @@
  >>> .\venv\Scripts\activate
  >>> pip install flask
  >>> pip install flask_cors
+ >>> pip install flask_bcrypt
  >>> pip install flask_sqlalchemy
  >>> pip install uuid
  >>> python app.py

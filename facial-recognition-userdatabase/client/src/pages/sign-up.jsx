@@ -8,6 +8,9 @@ import * as yup from "yup";
 
 import axios from "axios";
 
+import { useNavigate } from "react-router-dom";
+import { PATH_WEBPAGE } from "../routes/paths";
+
 
 // ---------------------------------------------------------
 
@@ -36,6 +39,8 @@ const validationSchema = yup.object({
 // ---------------------------------------------------------
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -49,7 +54,22 @@ const SignUp = () => {
   });
 
   const registerUser = () => {
-
+    axios
+      .post("http://127.0.0.1:5000/signup", {
+        email: formik.values.email,
+        password: formik.values.password
+      })
+      .then(res => {
+        console.log(res);
+        navigate(PATH_WEBPAGE.general.home);
+      })
+      .catch(err => {
+        if (!err.response) {
+          console.log("Error: Network Error (possibly server is down)");
+        } else {
+          console.log(err.response.data);
+        }
+      });
   }
 
   return (
