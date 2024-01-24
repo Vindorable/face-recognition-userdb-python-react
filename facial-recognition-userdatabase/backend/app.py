@@ -1,15 +1,24 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
+from models import db, DB_NAME, User
 
 
 # ---------------------------------------------------------
 
 def create_app():
     app = Flask(__name__)
+
+    CORS(app, supports_credentials=True)
+
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()
+        print("Created Database!")
+
     return app
 
 app = create_app()
-CORS(app, supports_credentials=True)
 
 
 # ---------------------------------------------------------
