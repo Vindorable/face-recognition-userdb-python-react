@@ -8,6 +8,9 @@ import * as yup from "yup";
 
 import axios from "axios";
 
+import { useNavigate } from "react-router-dom";
+import { PATH_WEBPAGE } from "../routes/paths";
+
 
 // ---------------------------------------------------------
 
@@ -44,7 +47,7 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      //alert(JSON.stringify(values, null, 2));
     },
   });
 
@@ -56,12 +59,13 @@ const Login = () => {
       })
       .then(res => {
         console.log(res);
+        navigate(PATH_WEBPAGE.general.home);
       })
       .catch(err => {
         if (!err.response) {
           console.log("Error: Network Error (possibly server is down)");
         } else {
-          console.log(err.response.data.message);
+          console.log(err.response.data);
         }
       });
   }

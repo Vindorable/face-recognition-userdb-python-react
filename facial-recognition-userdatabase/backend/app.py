@@ -53,7 +53,23 @@ def signup():
 
 @app.route("/login", methods=["POST"])
 def login():
-    return jsonify({"error": "Unauthorized"}), 401
+    email = request.json["email"]
+    password = request.json["password"]
+
+    user = User.query.filter_by(email=email).first()
+
+    if user is None:
+        return jsonify({"error": "Account does not exists."}), 401
+
+    if not bcrypt.check_password_hash(user.password, password):
+        return jsonify({"error": "Please check your credentials."}), 401
+
+    session["user_id"] = user.id
+
+    return jsonify({
+        "id": user.id,
+        "email": user.email
+    })
 
 # **********
 # 403 - Forbidden Error
