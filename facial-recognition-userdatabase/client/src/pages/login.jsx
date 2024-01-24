@@ -39,6 +39,8 @@ const validationSchema = yup.object({
 // ---------------------------------------------------------
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -56,6 +58,12 @@ const Login = () => {
       .post("http://127.0.0.1:5000/login", {
         email: formik.values.email,
         password: formik.values.password
+      }, {
+        withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+        }
       })
       .then(res => {
         console.log(res);

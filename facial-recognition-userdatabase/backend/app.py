@@ -10,6 +10,9 @@ def create_app():
     app = Flask(__name__)
     app.config["SECRET_KEY"] = "FruDb@123"
 
+    app.config["SESSION_COOKIE_SAMESITE"] = "None"
+    app.config["SESSION_COOKIE_SECURE"] = True
+
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
     db.init_app(app)
     with app.app_context():
@@ -28,6 +31,18 @@ bcrypt = Bcrypt(app)
 @app.route("/")
 def hello_world():
     return "Hello, World!"
+
+@app.route("/get_session", methods=["GET"])
+def get_session():
+    if "user_id" in session:
+        user = User.query.filter_by(id=session["user_id"]).first()
+
+        return jsonify({
+            "id": user.id,
+            "email": user.email
+        })
+    else:
+        return jsonify({"error": "No user session."}), 401
 
 @app.route("/signup", methods=["POST"])
 def signup():
