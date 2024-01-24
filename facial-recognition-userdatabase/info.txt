@@ -10,3 +10,11 @@
 
  "npm install yup"
  "npm install formik"
+
+
+.backend
+ >>> Set-ExecutionPolicy Unrestricted -Scope Process
+ >>> python -m venv venv
+ >>> .\venv\Scripts\activate
+ >>> pip install flask
+ >>> python app.py
