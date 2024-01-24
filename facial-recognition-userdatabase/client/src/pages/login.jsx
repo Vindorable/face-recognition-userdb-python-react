@@ -6,6 +6,8 @@ import BodyWrapper from "../components/body-wrapper";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
+import axios from "axios";
+
 
 // ---------------------------------------------------------
 
@@ -45,6 +47,24 @@ const Login = () => {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
+  const loginUser = () => {
+    axios
+      .post("http://127.0.0.1:5000/login", {
+        email: formik.values.email,
+        password: formik.values.password
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        if (!err.response) {
+          console.log("Error: Network Error (possibly server is down)");
+        } else {
+          console.log(err.response.data.message);
+        }
+      });
+  }
 
   return (
     <>
@@ -96,7 +116,7 @@ const Login = () => {
               helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
             />
 
-            <Button type="submit">Submit</Button>
+            <Button type="submit" onClick={loginUser}>Submit</Button>
           </Stack>
         </form>
       </BodyWrapper>

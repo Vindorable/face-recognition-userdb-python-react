@@ -11,10 +11,13 @@
  "npm install yup"
  "npm install formik"
 
+ "npm install axios"
+
 
 .backend
  >>> Set-ExecutionPolicy Unrestricted -Scope Process
  >>> python -m venv venv
  >>> .\venv\Scripts\activate
  >>> pip install flask
+ >>> pip install flask_cors
  >>> python app.py
