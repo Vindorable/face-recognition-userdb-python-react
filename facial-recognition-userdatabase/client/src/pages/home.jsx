@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Button, Divider, Stack, Tab, Tabs, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles"
+import { styled } from "@mui/material/styles";
 
 import BodyWrapper from "../components/body-wrapper";
 import WebcamCapture from "../components/webcam-capture";
+
+import axios from "axios";
 
 
 // ---------------------------------------------------------
@@ -43,6 +45,27 @@ const Home = () => {
     reader.onload = () => {
       console.log("called: ", reader);
       console.log(reader.result);
+
+      axios
+        .post("http://127.0.0.1:5000/upload", {
+          data: reader.result
+        }, {
+          withCredentials: true,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+          }
+        })
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          if (!err.response) {
+            console.log("Error: Network Error (possibly server is down)");
+          } else {
+            console.log(err.response.data);
+          }
+        });
     }
   }
 

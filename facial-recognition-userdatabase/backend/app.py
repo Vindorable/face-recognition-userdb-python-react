@@ -2,6 +2,12 @@ from flask import Flask, jsonify, request, session
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from models import db, DB_NAME, User
+from PIL import Image
+import io # working with streams
+import os # misc operating system interfaces
+import shutil # high-level file operations
+import time # time access and conversions
+import base64 # encoding binary data to printable ASCII characters and decoding such encodings back to binary data
 
 
 # ---------------------------------------------------------
@@ -122,7 +128,29 @@ def logout():
 #     > Indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
 # 404 - Page Not Found
 #     > Indicates that a server could not find a client-requested webpage.
+# 200 - OK
+#     > Indicates that the request has succeeded.
 # **********
+
+@app.route("/upload", methods=["POST"])
+def upload():
+    data = request.json["data"]
+
+    directory = "./test"
+
+    if data:
+        if os.path.exists(directory):
+            shutil.rmtree(directory)
+
+        if not os.path.exists(directory):
+            os.mkdir(directory)
+            time.sleep(1)
+            b = bytes(data, "utf-8")
+            imageB64 = b[b.find(b'/9'):]
+            image = Image.open(io.BytesIO(base64.b64decode(imageB64)))
+            image.save(directory+"/test.jpeg")
+    
+    return "200"
 
 
 # ---------------------------------------------------------

@@ -25,4 +25,5 @@
  >>> pip install flask_bcrypt
  >>> pip install flask_sqlalchemy
  >>> pip install uuid
+ >>> pip install pillow # Python Imaging Library
  >>> python app.py
