@@ -132,7 +132,7 @@ def logout():
 #     > Indicates that the request has succeeded.
 # **********
 
-@app.route("/upload", methods=["POST"])
+'''@app.route("/upload", methods=["POST"])
 def upload():
     data = request.json["data"]
 
@@ -149,6 +149,24 @@ def upload():
             imageB64 = b[b.find(b'/9'):]
             image = Image.open(io.BytesIO(base64.b64decode(imageB64)))
             image.save(directory+"/test.jpeg")
+    
+    return "200"'''
+
+@app.route("/upload", methods=["POST"])
+def upload():
+    data = request.json["data"]
+
+    directory = "./storage/facial-recognition/"+session["user_id"]
+
+    if data:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+            time.sleep(1)
+
+        b = bytes(data, "utf-8")
+        imageB64 = b[b.find(b'/9'):]
+        image = Image.open(io.BytesIO(base64.b64decode(imageB64)))
+        image.save(directory+"/auth.jpeg")
     
     return "200"
 
