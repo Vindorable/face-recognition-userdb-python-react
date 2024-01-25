@@ -28,6 +28,28 @@ bcrypt = Bcrypt(app)
 
 # ---------------------------------------------------------
 
+def add_admin_user():
+    email = "admin@admin"
+    password = bcrypt.generate_password_hash("Password1")
+
+    user_exists = User.query.filter_by(email=email).first() is not None
+
+    if user_exists:
+        print("Master account exists.")
+        return None
+
+    admin_user = User(email=email, password=password)
+    db.session.add(admin_user)
+    db.session.commit()
+    print("Master account created.")
+    return None
+
+with app.app_context():
+    add_admin_user()
+
+
+# ---------------------------------------------------------
+
 @app.route("/")
 def hello_world():
     return "Hello, World!"
