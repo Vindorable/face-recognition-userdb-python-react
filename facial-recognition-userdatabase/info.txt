@@ -13,6 +13,8 @@
 
  "npm install axios"
 
+ "npm install react-webcam"
+
 
 .backend
  >>> Set-ExecutionPolicy Unrestricted -Scope Process
