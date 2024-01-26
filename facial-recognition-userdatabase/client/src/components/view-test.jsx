@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Divider, Stack, Typography } from "@mui/material";
+
+import WebcamCapture from "./webcam-capture";
 
 import axios from "axios";
 
@@ -36,16 +39,28 @@ const ViewTest = () => {
 
   return (
     <>
-      {file &&
-        <img
-          src={file}
-          style={{
-            width: "350px",
-            height: "300px",
-            objectFit: "contain"
-          }}
-        />
-      }
+      <Stack spacing={3}>
+        <Typography inline align="center" variant="body2">Image file in the backend:</Typography>
+        {file &&
+          <Stack direction={"row"} alignItems={"center"} justifyContent={"space-evenly"}>
+            <img
+              src={file}
+              style={{
+                width: "350px",
+                height: "300px",
+                objectFit: "contain"
+              }}
+            />
+          </Stack>
+        }
+
+        <Divider />
+
+        <Stack direction={"row"} alignItems={"center"} justifyContent={"space-evenly"}>
+          <WebcamCapture />
+        </Stack>
+        <Typography inline align="center" variant="body2">Take a pic of yourself and see if the Facial Recognition matches.</Typography>
+      </Stack>
     </>
   );
 }
