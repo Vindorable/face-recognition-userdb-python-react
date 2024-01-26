@@ -26,4 +26,8 @@
  >>> pip install flask_sqlalchemy
  >>> pip install uuid
  >>> pip install pillow # Python Imaging Library
+ >>> pip install cmake # dlib was developed in C based programming language, so it needs this to work (also Visual Studio build tools > c++ cmake tools)
+ >>> pip install dlib # dlib needs to be installed to use face_recognition
+ >>> pip install face_recognition # Face Recognition Library
+ >>> pip install numpy # Fundamental package for scientific computing in Python
  >>> python app.py
