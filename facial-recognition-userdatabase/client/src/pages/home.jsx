@@ -26,17 +26,28 @@ const Home = () => {
 
         {/* Tabs */}
         {/* ---- */}
-        <Stack>
+        <Stack
+          p={1}
+          sx={{
+            boxShadow: "0px 0px 2px rgba(0, 0, 0, 0.25)",
+          }}
+        >
           <Stack
+            p={0.75}
             direction={"row"}
             alignItems={"center"}
             justifyContent={"space-evenly"}
+            sx={{
+              boxShadow: "0px 0px 2px rgba(0, 0, 0, 0.25)",
+            }}
           >
             <Tabs value={value} onChange={handleChange}>
               <Tab label="Upload Pic" />
               <Tab label="View Test" />
             </Tabs>
           </Stack>
+
+          <Divider sx={{ visibility: "hidden", borderBottomWidth: 10 }} />
 
           <Stack
             direction={"row"}
