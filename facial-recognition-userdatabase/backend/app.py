@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, session
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
-from models import db, DB_NAME, User
+from models import db, DB_NAME, User, Facial_Recognition_Images
 from PIL import Image
 import io # working with streams
 import os # misc operating system interfaces
@@ -163,10 +163,19 @@ def upload():
             os.makedirs(directory)
             time.sleep(1)
 
+        # Save image to directory.
         b = bytes(data, "utf-8")
         imageB64 = b[b.find(b'/9'):]
         image = Image.open(io.BytesIO(base64.b64decode(imageB64)))
         image.save(directory+"/auth.jpeg")
+
+        # Save image uri to relational database.
+        uri_exists = Facial_Recognition_Images.query.filter_by(uri=directory+"/auth.jpeg").first() is not None
+
+        if not uri_exists:
+            fr_auth_image = Facial_Recognition_Images(uri=directory+"/auth.jpeg", user_id=session["user_id"])
+            db.session.add(fr_auth_image)
+            db.session.commit()
     
     return "200"
 
