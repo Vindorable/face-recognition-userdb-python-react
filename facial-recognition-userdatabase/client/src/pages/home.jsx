@@ -3,6 +3,7 @@ import { Divider, Stack, Tab, Tabs, Typography } from "@mui/material";
 
 import BodyWrapper from "../components/body-wrapper";
 import UploadPicOptions from "../components/upload-pic-options";
+import ViewTest from "../components/view-test";
 
 
 // ---------------------------------------------------------
@@ -62,7 +63,7 @@ const Home = () => {
                   return <UploadPicOptions />
                 case 1:
                   // View Test.
-                  break;
+                  return <ViewTest />
               }
             })()}
           </Stack>

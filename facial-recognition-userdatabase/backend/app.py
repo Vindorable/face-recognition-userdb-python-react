@@ -179,6 +179,32 @@ def upload():
     
     return "200"
 
+@app.route("/get_file", methods=["GET"])
+def get_file():
+    directory = "./storage/facial-recognition/"+session["user_id"]
+
+    uri_exists = Facial_Recognition_Images.query.filter_by(uri=directory+"/auth.jpeg").first() is not None
+
+    if uri_exists:
+        # Reading the binary image.
+        # result: bytes
+        with open(directory+"/auth.jpeg", "rb") as image_file:
+            byte_content = image_file.read()
+
+        # base64 encode byte content.
+        # result: bytes (again)
+        base64_bytes = base64.b64encode(byte_content)
+
+        # Decode these bytes to text.
+        # result: string (in utf-8)
+        base64_string = base64_bytes.decode("utf-8")
+
+        return jsonify({
+            "data": base64_string
+        })
+    else:
+        return jsonify({"error": "No user file."}), 404
+
 
 # ---------------------------------------------------------
 
