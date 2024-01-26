@@ -1,26 +1,8 @@
 import React, { useState } from "react";
-import { Button, Divider, Stack, Tab, Tabs, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Divider, Stack, Tab, Tabs, Typography } from "@mui/material";
 
 import BodyWrapper from "../components/body-wrapper";
-import WebcamCapture from "../components/webcam-capture";
-
-import axios from "axios";
-
-
-// ---------------------------------------------------------
-
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
+import UploadPicOptions from "../components/upload-pic-options";
 
 
 // ---------------------------------------------------------
@@ -31,43 +13,6 @@ const Home = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const [file, setFile] = useState();
-  const handleFileUpload = (e) => {
-    setFile(e.target.files[0]);
-  }
-
-  const convertToBase64 = () => {
-    const reader = new FileReader()
-
-    reader.readAsDataURL(file)
-
-    reader.onload = () => {
-      console.log("called: ", reader);
-      console.log(reader.result);
-
-      axios
-        .post("http://127.0.0.1:5000/upload", {
-          data: reader.result
-        }, {
-          withCredentials: true,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json"
-          }
-        })
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => {
-          if (!err.response) {
-            console.log("Error: Network Error (possibly server is down)");
-          } else {
-            console.log(err.response.data);
-          }
-        });
-    }
-  }
 
   return (
     <>
@@ -88,8 +33,8 @@ const Home = () => {
             justifyContent={"space-evenly"}
           >
             <Tabs value={value} onChange={handleChange}>
-              <Tab label="Upload" />
-              <Tab label="Take A Pic" />
+              <Tab label="Upload Pic" />
+              <Tab label="View Test" />
             </Tabs>
           </Stack>
 
@@ -102,39 +47,11 @@ const Home = () => {
             {(() => {
               switch (value) {
                 case 0:
-                  // Upload.
-                  return <>
-                    <Stack pt={2} spacing={2}>
-                      {file &&
-                        <img
-                          src={URL.createObjectURL(file)}
-                          style={{
-                            width: "350px",
-                            height: "300px",
-                            objectFit: "contain"
-                          }}
-                        />
-                      }
-
-                      <Button component="label" variant="contained">
-                        {file ? "Change file" : "Choose file"}
-                        <VisuallyHiddenInput
-                          type="file"
-                          onChange={handleFileUpload}
-                          accept=".jpg,.jpeg,.png"
-                        />
-                      </Button>
-
-                      {file &&
-                        <Button component="label" variant="contained" onClick={convertToBase64}>
-                          Upload
-                        </Button>
-                      }
-                    </Stack>
-                  </>
+                  // Upload Pic.
+                  return <UploadPicOptions />
                 case 1:
-                  // Take A Pic.
-                  return <WebcamCapture />
+                  // View Test.
+                  break;
               }
             })()}
           </Stack>
