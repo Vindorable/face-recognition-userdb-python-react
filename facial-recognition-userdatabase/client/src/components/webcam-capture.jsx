@@ -7,7 +7,7 @@ import Webcam from "react-webcam";
 // ---------------------------------------------------------
 
 const WebcamCapture = () => {
-  const [deviceId, setDeviceId] = useState({});
+  const [deviceId, setDeviceId] = useState("");
   const [devices, setDevices] = useState([]);
 
   const handleDevices = useCallback(
@@ -20,6 +20,13 @@ const WebcamCapture = () => {
     //navigator.mediaDevices.enumerateDevices().then(devices => console.log(devices));
     navigator.mediaDevices.enumerateDevices().then(handleDevices);
   }, [handleDevices]);
+
+  useEffect(() => {
+    if (devices[0] != undefined) {
+      console.log("Default deviceId is set after filtering media devices types.");
+      setDeviceId(devices[0].deviceId);
+    }
+  }, [devices]);
 
   const handleChange = (event) => {
     setDeviceId(event.target.value);
@@ -40,7 +47,7 @@ const WebcamCapture = () => {
           <InputLabel id="select-label">Device</InputLabel>
           <Select
             labelId="select-label"
-            value={""}
+            value={deviceId}
             label="Device"
             onChange={handleChange}
           >
