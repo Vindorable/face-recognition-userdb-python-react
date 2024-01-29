@@ -27,12 +27,16 @@ const VisuallyHiddenInput = styled("input")({
 // ---------------------------------------------------------
 
 const UploadPicMatchTest = () => {
+  const [match, setMatch] = useState("");
+
   const [testFile, setTestFile] = useState();
   const handleFileUpload = (e) => {
+    setMatch("")
     setTestFile(e.target.files[0]);
   }
 
   const convertToBase64 = () => {
+    setMatch("Pending...")
     const reader = new FileReader()
 
     reader.readAsDataURL(testFile)
@@ -53,6 +57,11 @@ const UploadPicMatchTest = () => {
         })
         .then(res => {
           console.log(res);
+          if (res.data == "200") {
+            setMatch("Matched!")
+          } else {
+            setMatch("Unknown..")
+          }
         })
         .catch(err => {
           if (!err.response) {
@@ -82,6 +91,10 @@ const UploadPicMatchTest = () => {
                 objectFit: "contain"
               }}
             />
+          }
+
+          {testFile &&
+            <Typography inline align="center" variant="body2">{match}</Typography>
           }
 
           <Button component="label" variant="contained">
