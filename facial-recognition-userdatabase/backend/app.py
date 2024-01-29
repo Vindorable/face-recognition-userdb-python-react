@@ -8,6 +8,7 @@ import os # misc operating system interfaces
 import shutil # high-level file operations
 import time # time access and conversions
 import base64 # encoding binary data to printable ASCII characters and decoding such encodings back to binary data
+from face_rec import FaceRecognition
 
 
 # ---------------------------------------------------------
@@ -204,6 +205,34 @@ def get_file():
         })
     else:
         return jsonify({"error": "No user file."}), 404
+
+@app.route("/face_recognition", methods=["POST"])
+def face_recognition():
+    data = request.json["data"]
+
+    directory = "./test"
+
+    if data:
+        if os.path.exists(directory):
+            shutil.rmtree(directory)
+
+        if not os.path.exists(directory):
+            os.mkdir(directory)
+            time.sleep(1)
+            b = bytes(data, "utf-8")
+            imageB64 = b[b.find(b'/9'):]
+            image = Image.open(io.BytesIO(base64.b64decode(imageB64)))
+            image.save(directory+"/test.jpeg")
+
+        match_test_image_file_path = directory+"/test.jpeg"
+        stored_image_file_path = "./storage/facial-recognition/"+session["user_id"]+"/auth.jpeg"
+
+        if FaceRecognition(stored_image_file_path, match_test_image_file_path).match_test() == "Matched":
+            print(200)
+            return "200"
+        else:
+            print(401)
+            return "401"
 
 
 # ---------------------------------------------------------

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Divider, Stack, Typography } from "@mui/material";
 
 import WebcamCapture from "./webcam-capture";
+import UploadPicMatchTest from "./upload-pic-match-test";
 
 import axios from "axios";
 
@@ -60,6 +61,8 @@ const ViewTest = () => {
           <WebcamCapture />
         </Stack>
         <Typography inline align="center" variant="body2">Take a pic of yourself and see if the Facial Recognition matches.</Typography>
+
+        <UploadPicMatchTest />
       </Stack>
     </>
   );
