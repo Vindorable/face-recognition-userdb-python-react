@@ -27,7 +27,7 @@
  >>> pip install uuid
  >>> pip install pillow # Python Imaging Library
  >>> pip install cmake # dlib was developed in C based programming language, so it needs this to work (also Visual Studio build tools > c++ cmake tools)
- >>> pip install dlib # dlib needs to be installed to use face_recognition
+ >>> pip install dlib==19.24.2 # dlib needs to be installed to use face_recognition
  >>> pip install face_recognition # Face Recognition Library
- >>> pip install numpy # Fundamental package for scientific computing in Python
+ >>> pip install numpy==1.26.4 # Fundamental package for scientific computing in Python
  >>> python app.py
